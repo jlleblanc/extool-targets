@@ -1,4 +1,0 @@
-CREATE TABLE `{{table}}` (
-	{{fields}}
-	{{key}}
-);
