@@ -17,7 +17,7 @@ class Joomla15Controller
 		$this->table = $table;
 		$this->defaultView = str_replace('_', '', $defaultView->system_name);
 
-		$this->component = $rep->name;
+		$this->component = $rep->system_name;
 
 		$this->snippets = new \Extool\Helpers\SnippetFactory();
 		$this->snippets->setBasePath('targets/Joomla15/snip');

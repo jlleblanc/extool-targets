@@ -23,7 +23,7 @@ class Joomla15View
 		$this->view = $view;
 		$this->admin = $admin;
 		$this->rep = $rep;
-		$this->component = $rep->name;
+		$this->component = $rep->system_name;
 
 		$this->snippets = new \Extool\Helpers\SnippetFactory();
 		$this->snippets->setBasePath('targets/Joomla15/snip');

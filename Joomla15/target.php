@@ -13,8 +13,6 @@ class Joomla15 implements TargetInterface
 		if (!isset($this->config)) {
 			$fieldset = array(
 				'component' => 'text',
-				'project' => 'text',
-				'name' => 'text',
 				'license' => 'text',
 				'version' => 'text',
 				'description' => 'text',
@@ -73,7 +71,7 @@ class Joomla15 implements TargetInterface
 
 	private function generateMySQL()
 	{
-		$component = $this->rep->name;
+		$component = $this->rep->system_name;
 		$install_file = new \Extool\Helpers\File();
 		$uninstall_file = new \Extool\Helpers\File();
 
@@ -99,10 +97,10 @@ class Joomla15 implements TargetInterface
 	private function makeTableClasses()
 	{
 		foreach ($this->rep->tables as $table) {
-			$table_name = strtolower(str_replace(' ', '_', $table->name));
+			$table_name = $table->system_name;
 
-			if ($table_name != $this->rep->name) {
-				$table_name = $this->rep->name . '_' . $table_name;
+			if ($table_name != $this->rep->system_name) {
+				$table_name = $this->rep->system_name . '_' . $table_name;
 			}
 
 			$tableSnip = $this->snippets->getSnippet('table');
@@ -207,7 +205,7 @@ class Joomla15 implements TargetInterface
 
 	private function makeModelFiles($model, $admin = false)
 	{
-		$component = $this->rep->name;
+		$component = $this->rep->system_name;
 		$modelName = str_replace(array(' ', '_'), '', strtolower($model->name));
 
 		$modelSnip = $this->snippets->getSnippet('model');
@@ -261,7 +259,7 @@ class Joomla15 implements TargetInterface
 		$fileSnip = $this->snippets->getSnippet('code');
 		$fileSnip->assign('code', $mainSnip);
 
-		$this->files->addFile("site/{$this->rep->name}.php", $fileSnip);
+		$this->files->addFile("site/{$this->rep->system_name}.php", $fileSnip);
 
 		// Backend main file
 		$mainSnip = $this->snippets->getSnippet('main_admin');
@@ -287,7 +285,7 @@ class Joomla15 implements TargetInterface
 		$fileSnip = $this->snippets->getSnippet('code');
 		$fileSnip->assign('code', $mainSnip);
 
-		$this->files->addFile("admin/{$this->rep->name}.php", $fileSnip);
+		$this->files->addFile("admin/{$this->rep->system_name}.php", $fileSnip);
 	}
 
 	public function makeManifest()
@@ -296,8 +294,8 @@ class Joomla15 implements TargetInterface
 
 		$xmlSnip = $this->snippets->getSnippet('xml');
 
-		$xmlSnip->assign('component', $config->project);
-		$xmlSnip->assign('name', $config->name);
+		$xmlSnip->assign('component', $this->rep->system_name);
+		$xmlSnip->assign('name', $this->rep->name);
 		$xmlSnip->assign('license', $config->license);
 		$xmlSnip->assign('version', $config->version);
 		$xmlSnip->assign('description', $config->description);
@@ -309,13 +307,13 @@ class Joomla15 implements TargetInterface
 		foreach ($this->rep->admin_views as $view) {
 			if ($view->type == 'list') {
 				$snip = $this->snippets->getSnippet('xml_submenu_items');
-				$snip->assign('component', 'com_' . $config->project);
+				$snip->assign('component', 'com_' . $this->rep->system_name);
 				$snip->assign('title', ucwords($view->name));
 				$snip->assign('view', str_replace('_', '', $view->system_name));
 				$xmlSnip->add('submenu_items', $snip);
 			}
 		}
 
-		$this->files->addFile($config->project . '.xml', $xmlSnip);
+		$this->files->addFile($this->rep->system_name . '.xml', $xmlSnip);
 	}
 }
