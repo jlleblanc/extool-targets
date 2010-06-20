@@ -88,6 +88,11 @@ class Joomla15 implements TargetInterface
 
 			$install_file->appendContents($mysql->generateCreate() . "\n\n");
 			$uninstall_file->appendContents($mysql->generateDrop() . "\n");
+
+			if (isset($this->rep->data_sets[$table->name])) {
+				$mysql->addData($this->rep->data_sets[$table->name]);
+				$install_file->appendContents($mysql->generateInsert() . "\n\n");
+			}
 		}
 
 		$this->files->addFile('admin/install.mysql.sql', $install_file);
