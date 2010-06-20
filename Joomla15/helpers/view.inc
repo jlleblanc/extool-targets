@@ -94,7 +94,15 @@ class Joomla15View
 
 		$first = true;
 
-		foreach ($this->getTableFields() as $fieldTitle => $field) { 
+		$friendly_table_name = preg_replace('/ List$/', '', $this->view->name);
+		$primary_key = $this->tables[$friendly_table_name]->fields->key;
+
+		foreach ($this->getTableFields() as $fieldTitle => $field) {
+
+			if ($field['name'] == $primary_key) {
+				continue;
+			}
+
 			$header = $this->snippets->getSnippet('listadmin_tmpl_header');
 			$rowCol = $this->snippets->getSnippet('listadmin_tmpl_rowcol');
 			if ($first) {
@@ -120,7 +128,7 @@ class Joomla15View
 		$tmplSnip->assign('tablename', $this->tableNames[0]);
 
 		$friendly_table_name = preg_replace('/ List$/', '', $this->view->name);
-		$tmplSnip->assign('primary_key', $this->tables[$friendly_table_name]->fields->key);
+		$tmplSnip->assign('primary_key', $primary_key);
 		$tmplSnip->assign('controller', $this->getDefaultController());
 		$tmplSnip->assign('editviewname', preg_replace('/list$/', '', $this->viewDir));
 		
@@ -138,6 +146,11 @@ class Joomla15View
 		$tmplSnip->assign('table_key', $table->key);
 
 		foreach ($this->getTableFields() as $fieldTitle => $field) {
+
+			if ($table->key == $field['name']) {
+				continue;
+			}
+
 			$colSnip = $this->snippets->getSnippet('editadmin_tmpl_row');
 			$colSnip->assign('fieldTitle', ucfirst($fieldTitle));
 			$colSnip->assign('fieldName', $field['name']);
@@ -150,11 +163,18 @@ class Joomla15View
 	private function makeFrontSingleTmpl()
 	{
 		$fields = array();
-		
+
+		$table = $this->getPrimaryTable();
+
 		$tmplSnip = $this->snippets->getSnippet('singlefront_tmpl');
 		$tmplSnip->assign('viewname', $this->viewDir);
 
 		foreach ($this->getTableFields() as $fieldTitle => $fieldValue) {
+
+			if ($table->key == $fieldValue['name']) {
+				continue;
+			}
+
 			$field = $this->snippets->getSnippet('singlefront_tmpl_fields');
 			$field->assign('fieldTitle', ucfirst($fieldTitle));
 			$field->assign('fieldValue', $fieldValue['name']);
@@ -171,11 +191,17 @@ class Joomla15View
 		$tmplSnip->assign('tablename', $this->tableNames[0]);
 		$tmplSnip->assign('singleviewname', preg_replace('/list$/i', '', $this->viewDir));
 		$friendly_table_name = preg_replace('/ List$/', '', $this->view->name);
-		$tmplSnip->assign('primary_key', $this->tables[$friendly_table_name]->fields->key);
+		$primary_key = $this->tables[$friendly_table_name]->fields->key;
+		$tmplSnip->assign('primary_key', $primary_key);
 
 		$first = true;
 
 		foreach ($this->getTableFields() as $fieldTitle => $fieldValue) {
+
+			if ($primary_key == $fieldValue['name']) {
+				continue;
+			}
+
 			$header = $this->snippets->getSnippet('listfront_tmpl_header');
 			$header->assign('header', $fieldTitle);
 			$tmplSnip->add('headers', $header);
