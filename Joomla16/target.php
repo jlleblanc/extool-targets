@@ -169,6 +169,11 @@ class Joomla16 implements TargetInterface
 			}
 		}
 
+		// if there were no list views, just use the last view available
+		if ($default_view == null) {
+			$default_view = $view;
+		}
+
 		$controller = new Joomla16Controller($this->rep, $default_view);
 
 		$fileSnip = $this->snippets->getSnippet('code');

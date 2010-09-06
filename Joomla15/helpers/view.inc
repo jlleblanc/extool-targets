@@ -94,8 +94,8 @@ class Joomla15View
 
 		$first = true;
 
-		$friendly_table_name = preg_replace('/ List$/', '', $this->view->name);
-		$primary_key = $this->tables[$friendly_table_name]->fields->key;
+		$primary_table = $this->getPrimaryTable();
+		$primary_key = $primary_table->fields->key;
 
 		foreach ($this->getTableFields() as $fieldTitle => $field) {
 
@@ -127,7 +127,6 @@ class Joomla15View
 		$tmplSnip->assign('friendlyViewName', $this->view->name);
 		$tmplSnip->assign('tablename', $this->tableNames[0]);
 
-		$friendly_table_name = preg_replace('/ List$/', '', $this->view->name);
 		$tmplSnip->assign('primary_key', $primary_key);
 		$tmplSnip->assign('controller', $this->getDefaultController());
 		$tmplSnip->assign('editviewname', preg_replace('/list$/', '', $this->viewDir));
@@ -190,8 +189,9 @@ class Joomla15View
 		$tmplSnip->assign('viewname', $this->viewDir);
 		$tmplSnip->assign('tablename', $this->tableNames[0]);
 		$tmplSnip->assign('singleviewname', preg_replace('/list$/i', '', $this->viewDir));
-		$friendly_table_name = preg_replace('/ List$/', '', $this->view->name);
-		$primary_key = $this->tables[$friendly_table_name]->fields->key;
+
+		$primary_table = $this->getPrimaryTable();
+		$primary_key = $primary_table->fields->key;
 		$tmplSnip->assign('primary_key', $primary_key);
 
 		$first = true;
