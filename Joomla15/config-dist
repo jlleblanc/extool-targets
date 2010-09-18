@@ -1,0 +1,9 @@
+<?php
+
+$config = array(
+	'author' => 'Your Name Here',
+	'license' => 'GPL',
+	'version' => '1.0',
+	'description' => '',
+	'email' => 'you@example.com'
+);
