@@ -7,7 +7,11 @@ class PlainOldMySQL implements TargetInterface
 
 	function getConfiguration()
 	{
-		
+		$fields = new \Extool\Representation\Fields(array());
+
+		$config = new Configuration($fields);
+
+		return $config;
 	}
 
 	public function setConfiguration(Configuration $configuration)
