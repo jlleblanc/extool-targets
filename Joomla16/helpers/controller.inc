@@ -6,6 +6,7 @@ class Joomla16Controller
 	private $component;
 	private $admin;
 	private $table;
+	private $tablename;
 	private $defaultView;
 
 	private $rep;
@@ -14,7 +15,8 @@ class Joomla16Controller
 	function __construct($rep, $defaultView, $admin = false, $table = '')
 	{
 		$this->admin = $admin;
-		$this->table = $table;
+		$this->table = strtolower(str_replace(' ', '_', $table));
+		$this->tablename = $table;
 		$this->defaultView = str_replace('_', '', $defaultView->system_name);
 
 		$this->component = $rep->system_name;
@@ -53,11 +55,11 @@ class Joomla16Controller
 		if ($this->component == $this->table) {
 			$table = $this->table;
 		} else {
-			$table = $this->component . '_' . strtolower(str_replace(' ', '_', $this->table));
+			$table = $this->component . '_' . $this->table;
 		}
 
 		$funSnip->assign('table', $table);
-		$funSnip->assign('tablename', ucfirst(str_replace('_', ' ', $this->table)));
+		$funSnip->assign('tablename', $this->tablename);
 		$funSnip->assign('controller_name', $this->defaultView);
 
 		// Yes, we're using the default view name here, as view and model names
