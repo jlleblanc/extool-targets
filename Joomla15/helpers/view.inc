@@ -138,7 +138,8 @@ class Joomla15View
 		$tmplSnip->assign('primary_key', $primary_key);
 		$tmplSnip->assign('controller', $this->getDefaultController());
 		$tmplSnip->assign('editviewname', preg_replace('/list$/', '', $this->viewDir));
-		
+		$tmplSnip->assign('component', $this->component);
+
 		return $tmplSnip;
 	}
 	
@@ -148,6 +149,7 @@ class Joomla15View
 		
 		$tmplSnip->assign('friendlyViewName', $this->view->name);
 		$tmplSnip->assign('controller', $this->getDefaultController());
+		$tmplSnip->assign('component', $this->component);
 
 		$table = $this->getPrimaryTable();
 		$tmplSnip->assign('table_key', $table->key);
@@ -197,6 +199,7 @@ class Joomla15View
 		$tmplSnip->assign('viewname', $this->viewDir);
 		$tmplSnip->assign('tablename', $this->tableNames[0]);
 		$tmplSnip->assign('singleviewname', preg_replace('/list$/i', '', $this->viewDir));
+		$tmplSnip->assign('component', $this->component);
 
 		$primary_table = $this->getPrimaryTable();
 		$primary_key = $primary_table->fields->key;

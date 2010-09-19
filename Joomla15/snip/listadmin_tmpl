@@ -26,7 +26,7 @@ JToolBarHelper::addNew();
 			{
 				$row = &$this->{{tablename}}[$i];
 
-				$link = 'index.php?option=' . $option . '&amp;view={{editviewname}}&amp;cid[]='. $row->{{primary_key}};
+				$link = 'index.php?option=com_{{component}}&amp;view={{editviewname}}&amp;cid[]='. $row->{{primary_key}};
 				$checkbox = JHTML::_('grid.id', $i, $row->{{primary_key}} );
 			?>
 			<tr class="<?php echo "row{$k}"; ?>">
@@ -43,7 +43,7 @@ JToolBarHelper::addNew();
 	</table>
 	
 	<input type="hidden" name="controller" value="{{controller}}" />
-	<input type="hidden" name="option" value="<?php echo $option ?>" />
+	<input type="hidden" name="option" value="com_{{component}}" />
 	<input type="hidden" name="task" value="" />
 	<input type="hidden" name="boxchecked" value="0" />
 	<?php echo JHTML::_( 'form.token' ); ?>
