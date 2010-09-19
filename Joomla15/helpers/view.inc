@@ -87,6 +87,14 @@ class Joomla15View
 		
 		return false;
 	}
+
+	public function makeViewXml()
+	{
+		$xmlSnip = $this->snippets->getSnippet('front_view_xml');
+		$xmlSnip->assign('title', $this->view->name);
+
+		return $xmlSnip;
+	}
 	
 	private function makeAdminListTmpl()
 	{
