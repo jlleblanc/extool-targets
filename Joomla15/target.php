@@ -144,6 +144,9 @@ class Joomla15 implements TargetInterface
 
 			$path = "site/views/" . $clean_view_name . '/tmpl/default.xml';
 			$this->files->addFile($path, $codeView->makeViewXml());
+
+			$path = "site/views/" . $clean_view_name . '/metadata.xml';
+			$this->files->addFile($path, $codeView->makeViewMetadataXml());
 		}
 
 		foreach ($this->rep->admin_views as $view) {

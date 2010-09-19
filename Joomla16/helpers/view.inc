@@ -96,6 +96,14 @@ class Joomla16View
 		return $xmlSnip;
 	}
 
+	public function makeViewMetadataXml()
+	{
+		$xmlSnip = $this->snippets->getSnippet('front_view_metadata_xml');
+		$xmlSnip->assign('title', $this->view->name);
+
+		return $xmlSnip;
+	}
+
 	private function makeAdminListTmpl()
 	{
 		$tmplSnip = $this->snippets->getSnippet('listadmin_tmpl');
