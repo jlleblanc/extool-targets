@@ -15,6 +15,7 @@
 		<filename>{{component}}.php</filename>
 		<filename>controller.php</filename>
 		<folder>views</folder>
+		<filename>index.html</filename>
 	</files>
 	<install>
 		<sql>
@@ -39,6 +40,7 @@
 			<folder>tables</folder>
 			<folder>views</folder>
 			<folder>models</folder>
+			<filename>index.html</filename>
 		</files>
 	</administration>
 </install>

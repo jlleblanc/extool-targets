@@ -14,6 +14,7 @@
 		<folder>models</folder>
 		<filename>{{component}}.php</filename>
 		<filename>controller.php</filename>
+		<filename>index.html</filename>
 		<folder>views</folder>
 	</files>
 	<install>
@@ -35,6 +36,7 @@
 			<filename>install.mysql.sql</filename>
 			<filename>uninstall.mysql.sql</filename>
 			<filename>{{component}}.php</filename>
+			<filename>index.html</filename>
 			<folder>controllers</folder>
 			<folder>tables</folder>
 			<folder>views</folder>

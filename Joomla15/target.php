@@ -69,6 +69,12 @@ class Joomla15 implements TargetInterface
 		return $this->files;
 	}
 
+	private function indexFolder($path)
+	{
+		$index_snip = $this->snippets->getSnippet('index');
+		$this->files->addFile($path . '/index.html', $index_snip);
+	}
+
 	private function generateMySQL()
 	{
 		$component = $this->rep->system_name;
@@ -101,6 +107,8 @@ class Joomla15 implements TargetInterface
 
 	private function makeTableClasses()
 	{
+		$this->indexFolder('admin/tables');
+
 		foreach ($this->rep->tables as $table) {
 			$table_name = $table->system_name;
 
@@ -132,9 +140,14 @@ class Joomla15 implements TargetInterface
 	{
 		include_once 'helpers/view.inc';
 
+		$this->indexFolder('site/views');
+
 		foreach ($this->rep->public_views as $view) {
 			$codeView = new Joomla15View($view, $this->rep);
 			$clean_view_name = str_replace(array(' ', '_'), '', $view->system_name);
+
+			$this->indexFolder("site/views/" . $clean_view_name);
+			$this->indexFolder("site/views/" . $clean_view_name . "/tmpl/");
 
 			$path = "site/views/" . $clean_view_name . '/view.html.php';
 			$this->files->addFile($path, $codeView->makeViewClass());
@@ -149,9 +162,14 @@ class Joomla15 implements TargetInterface
 			$this->files->addFile($path, $codeView->makeViewMetadataXml());
 		}
 
+		$this->indexFolder('admin/views');
+
 		foreach ($this->rep->admin_views as $view) {
 			$codeView = new Joomla15View($view, $this->rep, true);
 			$clean_view_name = str_replace(array(' ', '_'), '', $view->system_name);
+
+			$this->indexFolder("admin/views/" . $clean_view_name);
+			$this->indexFolder("admin/views/" . $clean_view_name . "/tmpl/");
 
 			$path = "admin/views/" . $clean_view_name . '/view.html.php';
 			$this->files->addFile($path, $codeView->makeViewClass());
@@ -189,6 +207,8 @@ class Joomla15 implements TargetInterface
 	{
 		include_once 'helpers/controller.inc';
 
+		$this->indexFolder('admin/controllers');
+
 		foreach ($this->rep->admin_views as $viewkey => $view) {
 			// This code is an ugly kluge to get the name of the first table
 			// in the model with the same name as the view
@@ -210,9 +230,13 @@ class Joomla15 implements TargetInterface
 
 	private function makeModels()
 	{
+		$this->indexFolder('admin/models');
+
 		foreach ($this->rep->public_models as $model) {
 			$this->makeModelFiles($model);
 		}
+
+		$this->indexFolder('site/models');
 		
 		foreach ($this->rep->admin_models as $model) {
 			$this->makeModelFiles($model, true);
@@ -268,6 +292,9 @@ class Joomla15 implements TargetInterface
 
 	private function makeMainFiles()
 	{
+		$this->indexFolder('admin');
+		$this->indexFolder('site');
+
 		// Frontend main file
 		$mainSnip = $this->snippets->getSnippet('main');
 		$mainSnip->assign('component', ucfirst($this->rep->name));
