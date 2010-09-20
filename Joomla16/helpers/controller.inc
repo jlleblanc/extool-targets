@@ -1,4 +1,11 @@
 <?php
+/**
+ * Extool Joomla 1.6 Target
+ * 
+ * Copyright 2010 Joseph LeBlanc
+ * See LICENSE file for licensing details.
+ * 
+ */
 namespace Extool\Target;
 
 class Joomla16Controller

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Extool Plain Old MySQL Target
+ * 
+ * Copyright 2010 Joseph LeBlanc
+ * See LICENSE file for licensing details.
+ * 
+ */
 namespace Extool\Target;
 
 class PlainOldMySQL implements TargetInterface

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Extool Joomla 1.5 Target
+ * 
+ * Copyright 2010 Joseph LeBlanc
+ * See LICENSE file for licensing details.
+ * 
+ */
 namespace Extool\Target;
 
 class Joomla15View
