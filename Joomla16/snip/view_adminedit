@@ -7,5 +7,5 @@ if (!$id) {
 
 $row =& JTable::getInstance('{{table}}', 'Table');
 $row->load($id);
- 
+
 $this->assignRef('row', $row);
